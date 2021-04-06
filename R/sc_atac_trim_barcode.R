@@ -15,10 +15,6 @@
 #' @param output_folder the output dir for the demultiplexed fastq file, which will contain 
 #' fastq files with reformatted barcode and UMI into the read name. 
 #' Files ending in \code{.gz} will be automatically compressed.
-#' @param bc_start barcode start position (0-indexed), which is an extra parameter that is needed if the
-#' \code{bc_file} is in a \code{.csv} format.
-#' @param bc_length barcode length, which is an extra parameter that is needed if the
-#' \code{bc_file} is in a \code{.csv} format.
 #' @param umi_start if available, the start position of the molecular identifier.
 #' @param umi_length if available, the start position of the molecular identifier.  
 #' @param rmN logical, whether to remove reads that contains N in UMI or cell barcode.
@@ -41,8 +37,10 @@
 #' r1            = r1, 
 #' r2            = r2, 
 #' bc_file       = barcode_1000, 
-#' bc_start      = 3, 
-#' bc_length     = 16, 
+#' id1_st      = 3, 
+#' id1_len     = 16, 
+#' id2_st      = 3,
+#' id2_len     = 16,
 #' rmN           = TRUE,
 #' rmlow         = TRUE,
 #' output_folder = "")
@@ -54,8 +52,6 @@ sc_atac_trim_barcode <- function(
   r2,
   bc_file,
   output_folder = "",
-  bc_start=-1,
-  bc_length=-1,
   umi_start=0,
   umi_length=0,
   umi_in = "both",
@@ -150,10 +146,6 @@ sc_atac_trim_barcode <- function(
 
     } else {
       cat("Using barcode CSV file, since barcode FastQ file is not passed \n")
-      if(bc_start == -1 || bc_length == -1 ){
-        stop("Please pass bc_start and bc_length values")
-      }
-
 
       # trim the barcode csv file (which contains the actual barcodes in the second column)
       # into a file with barcodes on each line and no whitespace
@@ -186,8 +178,6 @@ sc_atac_trim_barcode <- function(
         r1,
         r2,
         temp_barcode_file,
-        bc_start,
-        bc_length,
         umi_start,
         umi_length,
         umi_in,

@@ -882,8 +882,6 @@ std::vector<int> sc_atac_paired_fastq_to_csv(
         char *fq3_fn,
         char *fq_out, 
         char *bc_fn, // barcode file must be a file where each line is a barcode (not comma separated)
-        int start, // get rid
-        int length, // get rid
         int umi_start,
         int umi_length,
         char *umi_in,
@@ -926,6 +924,10 @@ std::vector<int> sc_atac_paired_fastq_to_csv(
         file_error(fq1_fn);
     }
     
+    // how do we make this support multiple barcode files?
+    // bc_fn is a vector of file names
+    // we need to populate a map array of barcodes
+    // for each map, run through the reads and do exactly the same dealio as before (copying barcode, searching in map, adding to header)
     std::map<std::string, int> barcode_map; 
     std::ifstream bc(bc_fn);
     std::string line;

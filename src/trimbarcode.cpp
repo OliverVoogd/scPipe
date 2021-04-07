@@ -897,7 +897,7 @@ std::vector<int> sc_atac_paired_fastq_to_csv(
 )
 {
     std::vector<int> out_vect(6, 0);  // output vector of length 6 filled with zeroes
-    
+    Rcout << "START OF CPP FUNCTION" << std::endl;
     int passed_reads = 0;
     int removed_Ns = 0;
     int removed_low_qual = 0;
